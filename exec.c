@@ -11,31 +11,77 @@
 */
 int main(int argc, char **argv)
 {
-	char *user_input = NULL;
-	size_t input_size = 0;
-	ssize_t read_input;
 	/**
 	 * prompt function
 	*/
+	if (argc == 2)
+	{
+		line_to_array(argv[1], argv[0]);
+	}
+	else
+	{
+		get_line_function(argv[0]);
+	}
+
+	return (0);
+}
+/**
+ * get_line_function - gets the line from getline function
+ * @program_name: equivalent to argv[0]
+ * Return: void
+*/
+void get_line_function(char *program_name)
+{
+	ssize_t read_input;
+	char *user_input = NULL;
+	size_t input_size = 0;
+	pid_t child_pid;
+	int status, term = isatty(0), is_pipe = !term;
+
 	while (1)
 	{
-		printf("$ ");
+		if (term == 1)
+		write(1, "$ ", 2);
 		read_input = getline(&user_input, &input_size, stdin);
 		if (read_input == -1)
 		{
-			perror("Error handling input");
-			free(user_input);
-			exit(EXIT_FAILURE);
+			if (is_pipe)
+			{
+				free(user_input);
+				exit(EXIT_SUCCESS);
+			}
+			else
+			{
+				handle_error(user_input);
+			}
+
 		}
-		printf("%s", user_input);
-		/**
-		 * tokenization of the string function
-		 * passing the line into an array of strings
-		*/
-		line_to_array(user_input, argv[argc - argc]);
+		child_pid = fork();
+		if (child_pid == -1)
+		{
+			handle_error(user_input);
+		}
+		if (child_pid == 0)
+		{
+			line_to_array(user_input, program_name);
+			exit(EXIT_SUCCESS);
+		}
+		wait(&status);
 		free(user_input);
 		user_input = NULL;
 		input_size = 0;
 	}
-	return (0);
+}
+
+/**
+ * handle_error - repetitive code that frees user_input
+ * @user_input: string of user input
+ * Return: void
+*/
+
+void handle_error(char *user_input)
+{
+	perror("Failed");
+	free(user_input);
+	exit(EXIT_FAILURE);
 }

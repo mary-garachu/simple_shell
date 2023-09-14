@@ -45,7 +45,7 @@ void line_to_array(char *user_input, char *program_name)
 		i++;
 	}
 	tokenarr[i] = NULL;
-	execute_tokens(tokenarr, i, program_name);
+	execute_tokens(tokenarr, program_name);
 	free_tokenarr(tokenarr, i, user_input_cp);
 }
 
@@ -64,6 +64,7 @@ void free_tokenarr(char **tokenarr, int i, char *user_input_cp)
 	for (j = 0; j < i; j++)
 	{
 		free(tokenarr[j]);
+		tokenarr[j] = NULL;
 	}
 	free(tokenarr);
 }
