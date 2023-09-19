@@ -8,9 +8,12 @@
  */
 void execute_tokens(char **tokenarr, char *program_name)
 {
-	if (execve(tokenarr[0], tokenarr, NULL) == -1)
+	if (tokenarr[0] != NULL)
 	{
-		perror(program_name);
-		exit(EXIT_FAILURE);
+		if (execve(tokenarr[0], tokenarr, NULL) == -1)
+		{
+			perror(program_name);
+			exit(EXIT_FAILURE);
+		}
 	}
 }
