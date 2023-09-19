@@ -26,23 +26,57 @@ int main(int argc, char **argv)
 	return (0);
 }
 /**
+ * process_user_input - responsible for handling user input
+ * execution.
+ * @user_input: a string containing a users input.
+ * @program_name: equivalent to argv[0]
+ * Return: void
+*/
+void process_user_input(char *user_input, char *program_name)
+{
+	pid_t child_pid;
+	int status;
+
+	child_pid = fork();
+	if (child_pid == -1)
+	{
+		handle_error(user_input);
+	}
+	else if (child_pid == 0)
+	{
+		line_to_array(user_input, program_name);
+		exit(EXIT_SUCCESS);
+	}
+	else
+	{
+		wait(&status);
+	}
+}
+/**
  * get_line_function - gets the line from getline function
  * @program_name: equivalent to argv[0]
  * Return: void
 */
+
 void get_line_function(char *program_name)
 {
 	ssize_t read_input;
 	char *user_input = NULL;
 	size_t input_size = 0;
-	pid_t child_pid;
-	int status, term = isatty(0), is_pipe = !term;
+	int term = isatty(0), is_pipe = !term;
 
 	while (1)
 	{
 		if (term == 1)
-		write(1, "$ ", 2);
+		{
+			write(1, "$ ", 2);
+		}
 		read_input = getline(&user_input, &input_size, stdin);
+		if (strcmp(user_input, "exit\n") == 0)
+		{
+			free(user_input);
+			exit(EXIT_SUCCESS);
+		}
 		if (read_input == -1)
 		{
 			if (is_pipe)
@@ -54,24 +88,14 @@ void get_line_function(char *program_name)
 			{
 				handle_error(user_input);
 			}
-
 		}
-		child_pid = fork();
-		if (child_pid == -1)
-		{
-			handle_error(user_input);
-		}
-		if (child_pid == 0)
-		{
-			line_to_array(user_input, program_name);
-			exit(EXIT_SUCCESS);
-		}
-		wait(&status);
+		process_user_input(user_input, program_name);
 		free(user_input);
 		user_input = NULL;
 		input_size = 0;
 	}
 }
+
 
 /**
  * handle_error - repetitive code that frees user_input
