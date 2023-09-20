@@ -86,7 +86,7 @@ void get_line_function(char *program_name, char **envp)
 			write(1, "$ ", 2);
 		}
 		read_input = getline(&user_input, &input_size, stdin);
-		if (strcmp(user_input, "exit\n") == 0)
+		if (_strcmp(user_input, "exit\n") == 0)
 		{
 			free(user_input);
 			exit(EXIT_SUCCESS);
