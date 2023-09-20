@@ -14,7 +14,7 @@ void line_to_array(char *user_input, char *program_name)
 	char **tokenarr;
 	int i = 0;
 
-	user_input_cp = strdup(user_input); /* write a function to copy string */
+	user_input_cp = _strdp(user_input); /* write a function to copy string */
 	if (user_input_cp == NULL)
 		exit(1);
 	token_count = strtok(user_input, " \t\n");

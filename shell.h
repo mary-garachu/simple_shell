@@ -12,4 +12,5 @@ void get_line_function(char *program_name, char **envp);
 void process_user_input(char *user_input, char *program_name, char **envp);
 void handle_error(char *user_input);
 void env_builtin(char **envp);
+char *_strdp(const char *str);
 #endif
