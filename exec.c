@@ -7,20 +7,26 @@
  * main - demontrate simple shell using /bin/ls
  * @argc: count of strings entered in input
  * @argv: strings entered in terminal
+ * @env: array of environment variables
  * Return: 0 success 1 failure
 */
-int main(int argc, char **argv)
+int main(int argc, char **argv, char **env)
 {
 	/**
 	 * prompt function
-	*/
+	 */
+
 	if (argc == 2)
 	{
 		line_to_array(argv[1], argv[0]);
 	}
+	else if (argc == 3 && strcmp(argv[1], "env") == 0)
+	{
+		env_builtin(env);
+	}
 	else
 	{
-		get_line_function(argv[0]);
+		get_line_function(argv[0], env);
 	}
 
 	return (0);
@@ -30,12 +36,19 @@ int main(int argc, char **argv)
  * execution.
  * @user_input: a string containing a users input.
  * @program_name: equivalent to argv[0]
+ * @envp: array of environment variables
  * Return: void
 */
-void process_user_input(char *user_input, char *program_name)
+void process_user_input(char *user_input, char *program_name, char **envp)
 {
 	pid_t child_pid;
 	int status;
+
+	if (strcmp(user_input, "env\n") == 0)
+	{
+		env_builtin(envp);
+		return;
+	}
 
 	child_pid = fork();
 	if (child_pid == -1)
@@ -55,10 +68,11 @@ void process_user_input(char *user_input, char *program_name)
 /**
  * get_line_function - gets the line from getline function
  * @program_name: equivalent to argv[0]
+ * @envp: array of environment variables
  * Return: void
 */
 
-void get_line_function(char *program_name)
+void get_line_function(char *program_name, char **envp)
 {
 	ssize_t read_input;
 	char *user_input = NULL;
@@ -89,7 +103,7 @@ void get_line_function(char *program_name)
 				handle_error(user_input);
 			}
 		}
-		process_user_input(user_input, program_name);
+		process_user_input(user_input, program_name, envp);
 		free(user_input);
 		user_input = NULL;
 		input_size = 0;
@@ -108,4 +122,30 @@ void handle_error(char *user_input)
 	perror("Exit");
 	free(user_input);
 	exit(EXIT_FAILURE);
+}
+
+/**
+ * env_builtin - Handle the 'env' built-in command to print the environment.
+ * @envp: The array of environment variables.
+ * Return: void
+ */
+
+void env_builtin(char **envp)
+{
+	int i;
+
+	for (i = 0; envp[i] != NULL; i++)
+	{
+		printf("%s\n", envp[i]);
+	}
+
+
+
+
+
+
+
+
+
+
 }
