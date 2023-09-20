@@ -11,3 +11,4 @@ line_to_array
 - Frees memory when the function is complete
 execute_token
 - runs the execve function
+- added exit function
