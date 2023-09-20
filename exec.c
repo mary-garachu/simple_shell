@@ -138,14 +138,4 @@ void env_builtin(char **envp)
 	{
 		printf("%s\n", envp[i]);
 	}
-
-
-
-
-
-
-
-
-
-
 }
