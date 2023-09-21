@@ -14,4 +14,6 @@ void handle_error(char *user_input);
 void env_builtin(char **envp);
 char *_strdp(const char *str);
 int _strcmp(const char *str1, const char *str2);
+int _strlen(char *s);
+char *_strcat(char *dest, char *src);
 #endif
