@@ -102,10 +102,10 @@ void get_line_function(char *program_name, char **envp)
 				exit(EXIT_SUCCESS);
 			}
 			else
-			{
 				handle_error(user_input);
-			}
 		}
+		else if (read_input == 0)
+			continue;
 		else
 		{
 			if (_strcmp(user_input, "exit\n") == 0)

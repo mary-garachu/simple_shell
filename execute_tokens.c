@@ -11,7 +11,10 @@ void execute_tokens(char **tokenarr, char *program_name)
 	int i = 0;
 
 	if (tokenarr[0] == NULL)
+	{
 		exit(EXIT_FAILURE);
+		free(tokenarr);
+	}
 	if (execve(tokenarr[0], tokenarr, NULL) == -1)
 	{
 		perror(program_name);
