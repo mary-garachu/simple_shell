@@ -8,9 +8,17 @@
  */
 void execute_tokens(char **tokenarr, char *program_name)
 {
+	int i = 0;
+
 	if (execve(tokenarr[0], tokenarr, NULL) == -1)
 	{
 		perror(program_name);
 		exit(EXIT_FAILURE);
 	}
+	while (tokenarr[i] != NULL)
+	{
+		free(tokenarr[i]);
+		i++;
+	}
+	free(tokenarr);
 }

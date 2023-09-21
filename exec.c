@@ -24,7 +24,7 @@ int main(int argc, char **argv, char **env)
 	{
 		line_to_array(argv[1], argv[0]);
 	}
-	else if (argc == 3 && strcmp(argv[1], "env") == 0)
+	else if (argc == 3 && _strcmp(argv[1], "env") == 0)
 	{
 		env_builtin(env);
 	}
@@ -108,15 +108,16 @@ void get_line_function(char *program_name, char **envp)
 			free(user_input);
 			exit(last_command_status);
 		}
+
 		else
 		{
+			process_user_input(user_input, program_name, envp);
+			input_size = 0;
+			free(user_input);
 			last_command_status = 2;
 		}
-		process_user_input(user_input, program_name, envp);
-		free(user_input);
-		user_input = NULL;
-		input_size = 0;
 	}
+	free(user_input);
 }
 
 

@@ -16,7 +16,7 @@ void line_to_array(char *user_input, char *program_name)
 
 	user_input_cp = _strdp(user_input); /* write a function to copy string */
 	if (user_input_cp == NULL)
-		exit(1);
+		exit(EXIT_FAILURE);
 	token_count = strtok(user_input, " \t\n");
 	while (token_count != NULL)
 	{
@@ -27,8 +27,8 @@ void line_to_array(char *user_input, char *program_name)
 	if (tokenarr == NULL)
 	{
 		perror("Memory allocation failed");
-		free(user_input);
-		exit(1);
+		free(user_input_cp);
+		exit(EXIT_FAILURE);
 	}
 	i = 0;
 	token = strtok(user_input_cp, " \t\n");
@@ -39,7 +39,7 @@ void line_to_array(char *user_input, char *program_name)
 		{
 			perror("Memory allocation failed");
 			free_tokenarr(tokenarr, i, user_input_cp);
-			exit(1);
+			exit(EXIT_FAILURE);
 		}
 		token = strtok(NULL, " \t\n");
 		i++;
@@ -47,6 +47,7 @@ void line_to_array(char *user_input, char *program_name)
 	tokenarr[i] = NULL;
 	execute_tokens(tokenarr, program_name);
 	free_tokenarr(tokenarr, i, user_input_cp);
+	exit(EXIT_SUCCESS);
 }
 
 /**
@@ -61,7 +62,7 @@ void free_tokenarr(char **tokenarr, int i, char *user_input_cp)
 	int j = 0;
 
 	free(user_input_cp);
-	for (j = 0; j < i; j++)
+	for (j = 0; j <= i; j++)
 	{
 		free(tokenarr[j]);
 		tokenarr[j] = NULL;

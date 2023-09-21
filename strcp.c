@@ -7,7 +7,7 @@
 char *_strdp(const char *str)
 {
 	size_t len = 0;
-	char *new_str;
+	char *new_str = NULL;
 	size_t i;
 
 	while (str[len] != '\0')
