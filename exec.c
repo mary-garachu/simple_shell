@@ -48,7 +48,7 @@ void process_user_input(char *user_input, char *program_name, char **envp)
 	pid_t child_pid;
 	int status;
 
-	if (strcmp(user_input, "env\n") == 0)
+	if (_strcmp(user_input, "env\n") == 0)
 	{
 		env_builtin(envp);
 		return;
