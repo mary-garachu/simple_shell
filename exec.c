@@ -103,7 +103,7 @@ void get_line_function(char *program_name, char **envp)
 				handle_error(user_input);
 			}
 		}
-		if (read_input != -1)
+		else
 		{
 			if (_strcmp(user_input, "exit\n") == 0)
 			{
@@ -111,7 +111,7 @@ void get_line_function(char *program_name, char **envp)
 				exit(last_command_status);
 			}
 			else
-			process_user_input(user_input, program_name, envp);
+				process_user_input(user_input, program_name, envp);
 			input_size = 0;
 			free(user_input);
 			last_command_status = 2;
