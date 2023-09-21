@@ -16,7 +16,7 @@ int main(int argc, char **argv, char **env)
 	 * prompt function
 	 */
 
-	if (argc == 2)
+	if (argc >= 2)
 	{
 		line_to_array(argv[1], argv[0]);
 	}
