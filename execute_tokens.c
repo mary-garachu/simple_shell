@@ -8,8 +8,7 @@
  */
 void execute_tokens(char **tokenarr, char *program_name)
 {
-	extern char **environ;
-	if (execve(tokenarr[0], tokenarr, environ) == -1)
+	if (execve(tokenarr[0], tokenarr, NULL) == -1)
 	{
 		perror(program_name);
 		exit(EXIT_FAILURE);
