@@ -85,7 +85,6 @@ void get_line_function(char *program_name, char **envp)
 	char *user_input = NULL;
 	size_t input_size = 0;
 	int term = isatty(0), is_pipe = !term;
-	int last_command_status = 0;
 
 	while (1)
 	{
@@ -108,16 +107,9 @@ void get_line_function(char *program_name, char **envp)
 			continue;
 		else
 		{
-			if (_strcmp(user_input, "exit\n") == 0)
-			{
-				free(user_input);
-				exit(last_command_status);
-			}
-			else
-				process_user_input(user_input, program_name, envp);
+			process_user_input(user_input, program_name, envp);
 			input_size = 0;
 			free(user_input);
-			last_command_status = 2;
 		}
 	}
 	free(user_input);
