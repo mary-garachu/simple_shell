@@ -82,7 +82,7 @@ void process_user_input(char *user_input, char *program_name, char **envp)
 void get_line_function(char *program_name, char **envp)
 {
 	ssize_t read_input;
-	char *user_input = NULL;
+	char *user_input = NULL, *exit_func = "exit\n";
 	size_t input_size = 0;
 	int term = isatty(0), is_pipe = !term;
 
@@ -107,6 +107,8 @@ void get_line_function(char *program_name, char **envp)
 			continue;
 		else
 		{
+			if (_strcmp(user_input, exit_func) == 0)
+				exit(EXIT_SUCCESS);
 			process_user_input(user_input, program_name, envp);
 			input_size = 0;
 			free(user_input);
