@@ -47,27 +47,30 @@ void process_user_input(char *user_input, char *program_name, char **envp)
 {
 	pid_t child_pid;
 	int status;
+	int is_pipe = !isatty(0);
 
-	if (_strcmp(user_input, "env\n") == 0)
+	trim_whitespace(user_input);
+	if (is_empty_input(user_input, is_pipe))
 	{
-		env_builtin(envp);
+		free(user_input);
 		return;
 	}
-
+	if (!is_pipe && _strcmp(user_input, "env\n") == 0)
+	{
+		env_builtin(envp);
+		free(user_input);
+		return;
+	}
 	child_pid = fork();
 	if (child_pid == -1)
-	{
 		handle_error(user_input);
-	}
 	else if (child_pid == 0)
 	{
 		line_to_array(user_input, program_name);
 		exit(EXIT_SUCCESS);
 	}
 	else
-	{
 		wait(&status);
-	}
 }
 /**
  * get_line_function - gets the line from getline function

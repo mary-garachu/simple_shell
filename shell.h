@@ -14,4 +14,7 @@ void handle_error(char *user_input);
 void env_builtin(char **envp);
 char *_strdp(const char *str);
 int _strcmp(const char *str1, const char *str2);
+int is_whitespace_string(const char *str);
+int is_empty_input(const char *user_input, int is_pipe);
+void trim_whitespace(char *str);
 #endif
