@@ -15,8 +15,12 @@ int main(int argc, char **argv, char **env)
 	/**
 	 * prompt function
 	 */
-
-	if (argc >= 2)
+	if (argc != 1 && argc != 2)
+	{
+		perror("Enter a command after program name");
+		return (1);
+	}
+	if (argc == 2)
 	{
 		line_to_array(argv[1], argv[0]);
 	}
@@ -86,11 +90,6 @@ void get_line_function(char *program_name, char **envp)
 			write(1, "$ ", 2);
 		}
 		read_input = getline(&user_input, &input_size, stdin);
-		if (_strcmp(user_input, "exit\n") == 0)
-		{
-			free(user_input);
-			exit(EXIT_SUCCESS);
-		}
 		if (read_input == -1)
 		{
 			if (is_pipe)
@@ -102,6 +101,11 @@ void get_line_function(char *program_name, char **envp)
 			{
 				handle_error(user_input);
 			}
+		}
+		if (_strcmp(user_input, "exit\n") == 0)
+		{
+			free(user_input);
+			exit(EXIT_SUCCESS);
 		}
 		process_user_input(user_input, program_name, envp);
 		free(user_input);
