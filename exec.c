@@ -108,7 +108,10 @@ void get_line_function(char *program_name, char **envp)
 		else
 		{
 			if (_strcmp(user_input, exit_func) == 0)
+			{
+				free(user_input);
 				exit(EXIT_SUCCESS);
+			}
 			process_user_input(user_input, program_name, envp);
 			input_size = 0;
 			free(user_input);

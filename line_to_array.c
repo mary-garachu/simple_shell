@@ -4,6 +4,7 @@
  * of arrays to be processed
  * @user_input: string of user input
  * @program_name: name of program
+ * @envp: array of environment strings
  * Return: void
  */
 void line_to_array(char *user_input, char *program_name, char **envp)
