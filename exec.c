@@ -55,7 +55,7 @@ void process_user_input(char *user_input, char *program_name, char **envp)
 		free(user_input);
 		return;
 	}
-	if (!is_pipe && user_input != NULL && _strcmp(user_input, "env\n") == 0)
+	if (user_input != NULL && _strcmp(user_input, "env\n") == 0)
 	{
 		env_builtin(envp);
 		return;
