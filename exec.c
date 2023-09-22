@@ -24,7 +24,7 @@ int main(int argc, char **argv, char **env)
 	{
 		line_to_array(argv[1], argv[0], env);
 	}
-	else if (argc == 3 && _strcmp(argv[1], "env") == 0)
+	else if (argc == 3 && argv[1] != NULL && _strcmp(argv[1], "env") == 0)
 	{
 		env_builtin(env);
 	}
@@ -55,7 +55,7 @@ void process_user_input(char *user_input, char *program_name, char **envp)
 		free(user_input);
 		return;
 	}
-	if (!is_pipe && _strcmp(user_input, "env\n") == 0)
+	if (!is_pipe && user_input != NULL && _strcmp(user_input, "env\n") == 0)
 	{
 		env_builtin(envp);
 		return;
@@ -108,7 +108,7 @@ void get_line_function(char *program_name, char **envp)
 			continue;
 		else
 		{
-			if (_strcmp(user_input, exit_func) == 0)
+			if (user_input != NULL && _strcmp(user_input, exit_func) == 0)
 			{
 				free(user_input);
 				exit(last_command_status);
