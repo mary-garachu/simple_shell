@@ -115,7 +115,6 @@ void get_line_function(char *program_name, char **envp)
 			}
 			process_user_input(user_input, program_name, envp);
 			input_size = 0;
-			free(user_input);
 			last_command_status = 2;
 		}
 	}
@@ -148,6 +147,7 @@ void env_builtin(char **envp)
 
 	for (i = 0; envp[i] != NULL; i++)
 	{
-		printf("%s\n", envp[i]);
+		write(1, envp[i], _strlen(envp[i]));
+		write(1, "\n", 1);
 	}
 }
