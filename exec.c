@@ -86,7 +86,6 @@ void get_line_function(char *program_name, char **envp)
 	int term = isatty(0), is_pipe = !term;
 	int last_command_status = 0;
 
-	_memset(user_input, 0, input_size);
 	while (1)
 	{
 		if (term == 1)
