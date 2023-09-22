@@ -109,10 +109,11 @@ void get_line_function(char *program_name, char **envp)
 		{
 			if (_strcmp(user_input, exit_func) == 0)
 			{
-				free(user_input);	
+				free(user_input);
 				exit(last_command_status);
 			}
 			process_user_input(user_input, program_name, envp);
+			_memset(user_input, 0, input_size);
 			input_size = 0;
 			last_command_status = 2;
 			free(user_input);

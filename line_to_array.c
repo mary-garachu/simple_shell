@@ -10,8 +10,7 @@
 void line_to_array(char *user_input, char *program_name, char **envp)
 {
 	char *user_input_cp = NULL;
-	char *token = NULL;
-	char *token_count = NULL;
+	char *token = NULL, *token_count = NULL;
 	char **tokenarr;
 	int i = 0;
 

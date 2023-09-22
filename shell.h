@@ -22,4 +22,5 @@ char *check_environment(char *command, char **envp);
 int _strncmp(const char *s1, const char *s2, size_t n);
 size_t _strlen(const char *str);
 char *_sprintf(const char *str1, const char *str2, const char *str3);
+char *_memset(char *s, char b, unsigned int n);
 #endif
