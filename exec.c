@@ -58,7 +58,6 @@ void process_user_input(char *user_input, char *program_name, char **envp)
 	if (!is_pipe && _strcmp(user_input, "env\n") == 0)
 	{
 		env_builtin(envp);
-		free(user_input);
 		return;
 	}
 	child_pid = fork();
@@ -110,12 +109,13 @@ void get_line_function(char *program_name, char **envp)
 		{
 			if (_strcmp(user_input, exit_func) == 0)
 			{
-				free(user_input);
+				free(user_input);	
 				exit(last_command_status);
 			}
 			process_user_input(user_input, program_name, envp);
 			input_size = 0;
 			last_command_status = 2;
+			free(user_input);
 		}
 	}
 	free(user_input);
