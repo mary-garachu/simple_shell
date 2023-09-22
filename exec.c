@@ -22,7 +22,7 @@ int main(int argc, char **argv, char **env)
 	}
 	if (argc == 2)
 	{
-		line_to_array(argv[1], argv[0]);
+		line_to_array(argv[1], argv[0], env);
 	}
 	else if (argc == 3 && _strcmp(argv[1], "env") == 0)
 	{
@@ -66,7 +66,7 @@ void process_user_input(char *user_input, char *program_name, char **envp)
 		handle_error(user_input);
 	else if (child_pid == 0)
 	{
-		line_to_array(user_input, program_name);
+		line_to_array(user_input, program_name, envp);
 		exit(EXIT_SUCCESS);
 	}
 	else

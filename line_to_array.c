@@ -6,7 +6,7 @@
  * @program_name: name of program
  * Return: void
  */
-void line_to_array(char *user_input, char *program_name)
+void line_to_array(char *user_input, char *program_name, char **envp)
 {
 	char *user_input_cp = NULL;
 	char *token = NULL;
@@ -45,7 +45,7 @@ void line_to_array(char *user_input, char *program_name)
 		i++;
 	}
 	tokenarr[i] = NULL;
-	execute_tokens(tokenarr, program_name);
+	execute_tokens(tokenarr, program_name, envp);
 	free_tokenarr(tokenarr, i, user_input_cp);
 	exit(EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
  * @program_name: program name
  * Return: void
  */
-void execute_tokens(char **tokenarr, char *program_name)
+void execute_tokens(char **tokenarr, char *program_name, char **envp)
 {
 	int i = 0;
 
@@ -15,7 +15,7 @@ void execute_tokens(char **tokenarr, char *program_name)
 		exit(EXIT_FAILURE);
 		free(tokenarr);
 	}
-	if (execve(tokenarr[0], tokenarr, NULL) == -1)
+	if (execve(tokenarr[0], tokenarr, envp) == -1)
 	{
 		perror(program_name);
 		exit(EXIT_FAILURE);
